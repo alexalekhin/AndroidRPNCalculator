@@ -122,21 +122,7 @@ class MainScreenViewModel : ViewModel() {
     fun calculate() {
         if (inputHistory.isNotEmpty()) {
             if (!isCalculationPerformed) {
-                when (inputHistory[inputHistory.lastIndex]) {
-                    ExpressionElement.NUMBER -> {
-                        val calculationResult = calculator.calculate(expression.value!!)
-                        result.value =
-                            if ((calculationResult.toFloat() - floor(calculationResult.toFloat())) == FLOAT_ZERO) {
-                                calculationResult.toFloat().toInt().toString()
-                            } else {
-                                calculationResult
-                            }
-                    }
-                    else -> {
-                        //ignore if number is not last in chain
-                    }
-                }
-                isCalculationPerformed = true
+                performCalculation()
             } else {
                 val tokens = expression.value!!.split(" ")
                 val newExpression =
@@ -153,6 +139,14 @@ class MainScreenViewModel : ViewModel() {
                     }
                 }
                 expression.value = newExpression
+                performCalculation()
+            }
+        }
+    }
+
+    fun performCalculation() {
+        when (inputHistory[inputHistory.lastIndex]) {
+            ExpressionElement.NUMBER -> {
                 val calculationResult = calculator.calculate(expression.value!!)
                 result.value =
                     if ((calculationResult.toFloat() - floor(calculationResult.toFloat())) == FLOAT_ZERO) {
@@ -160,6 +154,9 @@ class MainScreenViewModel : ViewModel() {
                     } else {
                         calculationResult
                     }
+                isCalculationPerformed = true
+            }
+            else -> {
             }
         }
     }
