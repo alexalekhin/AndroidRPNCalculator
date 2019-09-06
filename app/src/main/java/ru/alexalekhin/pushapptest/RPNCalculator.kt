@@ -1,5 +1,7 @@
 package ru.alexalekhin.pushapptest
 
+import kotlin.math.round
+
 class RPNCalculator {
 
     fun calculate(input: String): String {
@@ -17,11 +19,11 @@ class RPNCalculator {
                     val d2 = elementStack.removeAt(elementStack.lastIndex)
                     elementStack.add(
                         when (t) {
-                            "+" -> d2 + d1
-                            "-" -> d2 - d1
-                            "×" -> d2 * d1
-                            "÷" -> d2 / d1
-                            "%" -> (d2 / d1) * WHOLE_VALUE_PERCENT
+                            "+" -> (d2 + d1).round(NUM_OF_DIGITS_AFTER_DOT)
+                            "-" -> (d2 - d1).round(NUM_OF_DIGITS_AFTER_DOT)
+                            "×" -> (d2 * d1).round(NUM_OF_DIGITS_AFTER_DOT)
+                            "÷" -> (d2 / d1).round(NUM_OF_DIGITS_AFTER_DOT)
+                            "%" -> ((d2 / d1) * WHOLE_VALUE_PERCENT).round(NUM_OF_DIGITS_AFTER_DOT)
                             else -> TODO("Add new operations")
                         }
                     )
@@ -58,7 +60,14 @@ class RPNCalculator {
 
     companion object {
         //Отсортированы по возрастанию приоритета
-        private val operations = arrayListOf("+", "-", "×", "÷", "%")
-        const val WHOLE_VALUE_PERCENT = 100.0
+        val operations = arrayListOf("+", "-", "×", "÷", "%")
+        const val WHOLE_VALUE_PERCENT = 100.0f
+        const val NUM_OF_DIGITS_AFTER_DOT = 10
+    }
+
+    private fun Double.round(decimals: Int): Double {
+        var multiplier = 1.0f
+        repeat(decimals) { multiplier *= 10 }
+        return round(this * multiplier) / multiplier
     }
 }

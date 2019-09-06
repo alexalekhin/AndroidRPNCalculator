@@ -3,6 +3,7 @@ package ru.alexalekhin.pushapptest
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlin.math.floor
+import kotlin.math.truncate
 
 class MainScreenViewModel : ViewModel() {
     private val calculator = RPNCalculator()
@@ -132,9 +133,8 @@ class MainScreenViewModel : ViewModel() {
                     when (it) {
                         '-' -> inputHistory.add(ExpressionElement.SIGN)
                         ',' -> inputHistory.add(ExpressionElement.COMMA)
-                        in "+-×÷%" -> inputHistory.add(ExpressionElement.OPERATION)
-                        ' ' -> {
-                        }
+                        in operations -> inputHistory.add(ExpressionElement.OPERATION)
+                        ' ' -> { }
                         else -> inputHistory.add(ExpressionElement.NUMBER)
                     }
                 }
@@ -144,13 +144,13 @@ class MainScreenViewModel : ViewModel() {
         }
     }
 
-    fun performCalculation() {
+    private fun performCalculation() {
         when (inputHistory[inputHistory.lastIndex]) {
             ExpressionElement.NUMBER -> {
                 val calculationResult = calculator.calculate(expression.value!!)
                 result.value =
                     if ((calculationResult.toFloat() - floor(calculationResult.toFloat())) == FLOAT_ZERO) {
-                        calculationResult.toFloat().toInt().toString()
+                        truncate(calculationResult.toFloat()).toInt().toString()
                     } else {
                         calculationResult
                     }
@@ -164,6 +164,7 @@ class MainScreenViewModel : ViewModel() {
     companion object {
         const val FLOAT_ZERO = 0.0f
         const val OPERATION_REMOVAL_SYMBOLS_NUM = 3
+        val operations = arrayListOf('+', '-', '×', '÷', '%')
     }
 
     enum class ExpressionElement {
