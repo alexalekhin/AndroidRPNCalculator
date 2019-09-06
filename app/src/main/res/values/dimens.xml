@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!-- Standard material design clickable area size-->
+    <dimen name="button_dimen">58dp</dimen>
+    <dimen name="button_dimen_long">134dp</dimen>
+</resources>
