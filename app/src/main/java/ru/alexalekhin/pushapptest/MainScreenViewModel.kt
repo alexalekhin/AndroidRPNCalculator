@@ -134,7 +134,8 @@ class MainScreenViewModel : ViewModel() {
                         '-' -> inputHistory.add(ExpressionElement.SIGN)
                         ',' -> inputHistory.add(ExpressionElement.COMMA)
                         in operations -> inputHistory.add(ExpressionElement.OPERATION)
-                        ' ' -> { }
+                        ' ' -> {
+                        }
                         else -> inputHistory.add(ExpressionElement.NUMBER)
                     }
                 }
@@ -150,7 +151,7 @@ class MainScreenViewModel : ViewModel() {
                 val calculationResult = calculator.calculate(expression.value!!)
                 result.value =
                     if ((calculationResult.toFloat() - floor(calculationResult.toFloat())) == FLOAT_ZERO) {
-                        truncate(calculationResult.toFloat()).toInt().toString()
+                        truncate(calculationResult.toFloat()).toLong().toString()
                     } else {
                         calculationResult
                     }
