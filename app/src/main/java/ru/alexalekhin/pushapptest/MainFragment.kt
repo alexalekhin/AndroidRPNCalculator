@@ -1,7 +1,10 @@
 package ru.alexalekhin.pushapptest
 
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
+import android.util.TypedValue
 import android.view.View
+import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -20,6 +23,25 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         viewModel.result.observe(this, Observer {
             textViewResult.text = it
         })
+        //Fields
+        textViewExpression.apply {
+            movementMethod = ScrollingMovementMethod()
+            TextViewCompat
+                .setAutoSizeTextTypeUniformWithConfiguration(
+                    this,
+                    EXPRESSION_TEXT_SIZE_MIN, EXPRESSION_TEXT_SIZE_MAX, TEXT_CHANGE_SIZE_STEP,
+                    TypedValue.COMPLEX_UNIT_SP
+                )
+        }
+        textViewResult.apply {
+            movementMethod = ScrollingMovementMethod()
+            TextViewCompat
+                .setAutoSizeTextTypeUniformWithConfiguration(
+                    this,
+                    RESULT_TEXT_SIZE_MIN, RESULT_TEXT_SIZE_MAX, TEXT_CHANGE_SIZE_STEP,
+                    TypedValue.COMPLEX_UNIT_SP
+                )
+        }
         //Numbers
         button0.setOnClickListener { viewModel.addNumber(button0.text.toString()) }
         button1.setOnClickListener { viewModel.addNumber(button1.text.toString()) }
@@ -40,12 +62,22 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         buttonSign.setOnClickListener { viewModel.addSign() }
         buttonComma.setOnClickListener { viewModel.addComma() }
         //Actions
-        buttonAC.setOnClickListener { viewModel.clearAll() }
+        buttonAC.setOnClickListener {
+            viewModel.clearAll()
+            textViewExpression.textSize = EXPRESSION_TEXT_SIZE_MAX.toFloat()
+            textViewResult.textSize = RESULT_TEXT_SIZE_MAX.toFloat()
+        }
         buttonResult.setOnClickListener { viewModel.calculate() }
     }
 
     companion object {
         @JvmStatic
         fun newInstance() = MainFragment()
+
+        private const val EXPRESSION_TEXT_SIZE_MIN = 18
+        private const val EXPRESSION_TEXT_SIZE_MAX = 24
+        private const val RESULT_TEXT_SIZE_MIN = 30
+        private const val RESULT_TEXT_SIZE_MAX = 42
+        private const val TEXT_CHANGE_SIZE_STEP = 2
     }
 }

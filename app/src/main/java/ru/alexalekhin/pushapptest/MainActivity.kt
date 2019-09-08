@@ -14,16 +14,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.main_container, MainFragment.newInstance())
                 .commit()
-        } else {
-            val orientation = resources.configuration.orientation
-            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                Snackbar.make(
-                    main_container,
-                    resources.getText(R.string.i_am_sorry_message),
-                    Snackbar.LENGTH_LONG
-                ).setAction(resources.getText(R.string.accept_sorry), View.OnClickListener {})
-                    .show()
-            }
         }
     }
 }

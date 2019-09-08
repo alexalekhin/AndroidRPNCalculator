@@ -150,8 +150,8 @@ class MainScreenViewModel : ViewModel() {
             ExpressionElement.NUMBER -> {
                 val calculationResult = calculator.calculate(expression.value!!)
                 result.value =
-                    if ((calculationResult.toFloat() - floor(calculationResult.toFloat())) == FLOAT_ZERO) {
-                        truncate(calculationResult.toFloat()).toLong().toString()
+                    if ((calculationResult.toDouble() - floor(calculationResult.toDouble())) == FLOAT_ZERO) {
+                        truncate(calculationResult.toDouble()).toLong().toString()
                     } else {
                         calculationResult
                     }
@@ -163,7 +163,7 @@ class MainScreenViewModel : ViewModel() {
     }
 
     companion object {
-        const val FLOAT_ZERO = 0.0f
+        const val FLOAT_ZERO = 0.0
         const val OPERATION_REMOVAL_SYMBOLS_NUM = 3
         val operations = arrayListOf('+', '-', '×', '÷', '%')
     }
