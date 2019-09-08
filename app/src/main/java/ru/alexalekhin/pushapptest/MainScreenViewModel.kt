@@ -126,6 +126,7 @@ class MainScreenViewModel : ViewModel() {
                 performCalculation()
             } else {
                 val tokens = expression.value!!.split(" ")
+                if (tokens.size == 1) return
                 val newExpression =
                     result.value + " ${tokens[tokens.lastIndex - 1]} ${tokens[tokens.lastIndex]}"
                 inputHistory.clear()
