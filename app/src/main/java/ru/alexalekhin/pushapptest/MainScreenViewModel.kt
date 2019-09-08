@@ -151,7 +151,7 @@ class MainScreenViewModel : ViewModel() {
             ExpressionElement.NUMBER -> {
                 val calculationResult = calculator.calculate(expression.value!!)
                 result.value =
-                    if ((calculationResult.toDouble() - floor(calculationResult.toDouble())) == FLOAT_ZERO) {
+                    if ((calculationResult.toDouble() - calculationResult.toDouble().toLong()) == FLOAT_ZERO) {
                         truncate(calculationResult.toDouble()).toLong().toString()
                     } else {
                         calculationResult

@@ -62,7 +62,7 @@ class RPNCalculator {
         //Отсортированы по возрастанию приоритета
         val operations = arrayListOf("+", "-", "×", "÷", "%")
         const val WHOLE_VALUE_PERCENT = 100.0f
-        const val NUM_OF_DIGITS_AFTER_DOT = 10
+        const val NUM_OF_DIGITS_AFTER_DOT = 4
     }
 
     private fun Double.round(decimals: Int): Double {
