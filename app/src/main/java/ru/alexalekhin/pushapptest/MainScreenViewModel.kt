@@ -98,8 +98,8 @@ class MainScreenViewModel : ViewModel() {
                     expression.value =
                         expression.value!!.substring(
                             0,
-                            expression.value!!.length - OPERATION_REMOVAL_SYMBOLS_NUM
-                        ) + " $operation "
+                            expression.value!!.length - SIGN_REMOVAL_SYMBOLS_NUM
+                        ) + "0 $operation "
                     inputHistory[inputHistory.lastIndex] =
                         ExpressionElement.OPERATION
                 }
@@ -166,6 +166,7 @@ class MainScreenViewModel : ViewModel() {
     companion object {
         const val FLOAT_ZERO = 0.0
         const val OPERATION_REMOVAL_SYMBOLS_NUM = 3
+        const val SIGN_REMOVAL_SYMBOLS_NUM = 1
         val operations = arrayListOf('+', '-', '×', '÷', '%')
     }
 
