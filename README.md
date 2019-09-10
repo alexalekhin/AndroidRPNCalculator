@@ -1,6 +1,6 @@
-# PushAppTest
+# RPN Calculator
 ## Description
-Simple calculator for android device based on RPN
+Simple calculator for Android device based on RPN
 
 ## Screenshots
 <img src="https://sun9-19.userapi.com/c850636/v850636903/1a74ef/ysXSL4ClQA0.jpg" alt="drawing" height="500"/>
